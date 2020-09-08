@@ -90,7 +90,7 @@ public class MovieResourceTest {
     public void testDummyMsg() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/movie/").then()
+                .get("/movie").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("msg", equalTo("Hello World"));
@@ -120,7 +120,7 @@ public class MovieResourceTest {
     public void testGetAllMovies() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/movie/all/").then()
+                .get("/movie/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("size()", is(2))
