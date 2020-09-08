@@ -17,13 +17,49 @@ public class Movie implements Serializable {
     private Long id;
     private int year;
     private String title;
+    private String[] actors;
+    private int cost;
 
     public Movie() {
     }
 
-    public Movie(int year, String title) {
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String[] getActors() {
+        return actors;
+    }
+
+    public void setActors(String[] actors) {
+        this.actors = actors;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public Movie(int year, String title, String[] actors, int cost) {
         this.year = year;
         this.title = title;
+        this.actors = actors;
+        this.cost = cost;
     }
 
     public Long getId() {

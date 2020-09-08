@@ -1,10 +1,13 @@
 package facades;
 
 import entities.Movie;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -47,9 +50,19 @@ public class MovieFacade {
         }
     }
 
-    public Movie createMovie(int year, String title) {
+    public List<Movie> getMovieByTitle(String title) {
         EntityManager em = emf.createEntityManager();
-        Movie mov = new Movie(year, title);
+        try {
+            TypedQuery<Movie> query = em.createQuery("SELECT r FROM Movie r WHERE r.title = :title", Movie.class);
+            return query.setParameter("title", title).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Movie createMovie(int year, String title, String[] actors, int cost) {
+        EntityManager em = emf.createEntityManager();
+        Movie mov = new Movie(year, title, actors, cost);
         try {
             em.getTransaction().begin();
             em.persist(mov);
@@ -68,5 +81,16 @@ public class MovieFacade {
         } finally {
             em.close();
         }
+    }
+
+    public List<Movie> getAllMovies() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Movie> query = em.createQuery("Select e FROM Movie e", Movie.class);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+
     }
 }
