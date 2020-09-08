@@ -16,8 +16,10 @@ public class MovieDTO {
     private int year;
     private String title;
     private String[] actors;
+    private Long id;
 
     public MovieDTO(Movie mov) {
+        this.id = mov.getId();
         this.year = mov.getYear();
         this.title = mov.getTitle();
         this.actors = mov.getActors();
@@ -50,6 +52,14 @@ public class MovieDTO {
 
     public void setActors(String[] actors) {
         this.actors = actors;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

@@ -14,6 +14,8 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -102,4 +104,37 @@ public class MovieResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
     }
+
+    @Test
+    public void testGetMovieById() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/movie/moviebyid/" + r1.getId()).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("title", equalTo("More text"));
+    }
+
+    @Test
+    public void testGetAllMovies() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/movie/all/").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size()", is(2))
+                .and()
+                .body("title", hasItems("More text", "bbb"));
+    }
+
+    @Test
+    public void testGetMovieByTitle() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/movie/title/" + r1.getTitle()).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("[0].id", is(r1.getId().intValue()));
+    }
+
 }
