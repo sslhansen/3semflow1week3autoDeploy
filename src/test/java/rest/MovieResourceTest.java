@@ -78,6 +78,7 @@ public class MovieResourceTest {
         }
     }
 
+    //Changed nothing, really
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
