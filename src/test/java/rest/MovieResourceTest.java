@@ -118,6 +118,7 @@ public class MovieResourceTest {
 
     @Test
     public void testGetAllMovies() throws Exception {
+        given().log().all().get("/movie/all").then().log().body();
         given()
                 .contentType("application/json")
                 .get("/movie/all").then()
@@ -130,14 +131,13 @@ public class MovieResourceTest {
 
     @Test
     public void testGetMovieByTitle() throws Exception {
-        given().log().all().get("/movie/all").then().log().body();
         given()
                 .contentType("application/json")
                 .get("/movie/title/" + r1.getTitle()).then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("[0].id", is(r1.getId().intValue()));
-
+                
     }
 
 }
