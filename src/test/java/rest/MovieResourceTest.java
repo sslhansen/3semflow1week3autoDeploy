@@ -72,6 +72,8 @@ public class MovieResourceTest {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(r1);
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(r2);
             em.getTransaction().commit();
         } finally {
@@ -127,7 +129,9 @@ public class MovieResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("size()", is(2))
                 .and()
-                .body("title", containsInAnyOrder("More text", "bbb"));
+                .body("[0].title", is("More text"))
+                .and()
+                .body("[1].title", is("bbb"));
     }
 
     @Test
