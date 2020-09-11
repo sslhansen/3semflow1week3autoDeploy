@@ -60,6 +60,23 @@ public class MovieFacade {
         }
     }
 
+    public void populate() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+            em.persist(new Movie(1994, "More text", new String[]{"Egon Olsen", "Benny"}, 200000));
+            em.persist(new Movie(1231, "Harry Rotter", new String[]{"Svend Svend", "Henrik"}, 212112));
+            em.persist(new Movie(2666, "Rarry Hotter", new String[]{"Svend John", "Henrik"}, 2121212));
+            em.persist(new Movie(2132, "Des", new String[]{"Svend Clausen", "Henrik"}, 532423));
+            em.persist(new Movie(2012, "troy", new String[]{"Svend Hends", "Henrik"}, 2342332));
+            em.persist(new Movie(2323, "Humans", new String[]{"Svend Mogensen", "Henrik"}, 3400000));
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
     public Movie createMovie(int year, String title, String[] actors, int cost) {
         EntityManager em = emf.createEntityManager();
         Movie mov = new Movie(year, title, actors, cost);

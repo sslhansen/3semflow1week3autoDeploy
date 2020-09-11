@@ -106,7 +106,7 @@ public class MovieFacadeTest {
         assertTrue(movies.get(0).getTitle().equals(rm1.getTitle()));
         assertTrue(movies.get(1).getTitle().equals(rm2.getTitle()));
         //for (int i = 0; i < movies.size(); i++) {
-            //assertEquals(moviesExpected.get(i).getTitle(), movies.get(i).getTitle());
+        //assertEquals(moviesExpected.get(i).getTitle(), movies.get(i).getTitle());
         //}
     }
 

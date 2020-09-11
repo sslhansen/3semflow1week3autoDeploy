@@ -41,6 +41,16 @@ public class MovieResource {
         return "{\"count\":" + count + "}";
     }
 
+    @Path("populate")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String populate() {
+        FACADE.populate();
+        //System.out.println("--------------->"+count);
+        return "added entries to the DB";
+    }
+
+    
     @Path("moviebyid/{moviebyid}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
