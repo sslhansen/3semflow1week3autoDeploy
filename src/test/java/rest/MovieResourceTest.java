@@ -118,7 +118,7 @@ public class MovieResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("title", equalTo("More text"));
     }
-
+   
     @Test
     public void testGetAllMovies() throws Exception {
         given().log().all().get("/movie/all").then().log().body();

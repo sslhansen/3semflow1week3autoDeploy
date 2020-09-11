@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,8 @@ public class MovieFacadeTest {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(rm1);
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(rm2);
             em.getTransaction().commit();
         } finally {
@@ -100,9 +103,11 @@ public class MovieFacadeTest {
         List<Movie> moviesExpected = new ArrayList();
         moviesExpected.add(rm1);
         moviesExpected.add(rm2);
-        for (int i = 0; i < movies.size(); i++) {
-            assertEquals(moviesExpected.get(i).getTitle(), movies.get(i).getTitle());
-        }
+        assertTrue(movies.get(0).getTitle().equals(rm1.getTitle()));
+        assertTrue(movies.get(1).getTitle().equals(rm2.getTitle()));
+        //for (int i = 0; i < movies.size(); i++) {
+            //assertEquals(moviesExpected.get(i).getTitle(), movies.get(i).getTitle());
+        //}
     }
 
 }
